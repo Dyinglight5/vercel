@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>[XYCTF]刷题笔记 | Dyinglight&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="[Solved]Warm up第一个是经典的0e绕过，?val1&#x3D;QNKCDZO&amp;val2&#x3D;240610708 $$md5 &#x3D;&#x3D; md5$$md5)用特殊字符串&amp;md5&#x3D;0e215962017 第三个利用$XYCTF可以被复写，保证xyctf和xy相同即可，md5编码XYCTF_550102591发现是0e打头，用0e绕过即可，&amp;a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[XYCTF]刷题笔记">
+<meta property="og:url" content="http://dyinglight5.github.io/posts/XYCTF-%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Dyinglight&#39;s blog">
+<meta property="og:description" content="[Solved]Warm up第一个是经典的0e绕过，?val1&#x3D;QNKCDZO&amp;val2&#x3D;240610708 $$md5 &#x3D;&#x3D; md5$$md5)用特殊字符串&amp;md5&#x3D;0e215962017 第三个利用$XYCTF可以被复写，保证xyctf和xy相同即可，md5编码XYCTF_550102591发现是0e打头，用0e绕过即可，&amp;a">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://dyinglight5.github.io/images/plane.jpg">
+<meta property="og:image" content="http://dyinglight5.github.io/images/ship.jpg">
+<meta property="article:published_time" content="2024-04-12T12:36:03.000Z">
+<meta property="article:modified_time" content="2024-04-13T07:36:53.940Z">
+<meta property="article:author" content="Dyinglight">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://dyinglight5.github.io/images/plane.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Dyinglight's blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Dyinglight&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://dyinglight5.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-XYCTF-刷题笔记" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/posts/XYCTF-%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time class="dt-published" datetime="2024-04-12T12:36:03.000Z" itemprop="datePublished">2024-04-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      [XYCTF]刷题笔记
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h5 id="Solved-Warm-up"><a href="#Solved-Warm-up" class="headerlink" title="[Solved]Warm up"></a>[Solved]Warm up</h5><p>第一个是经典的0e绕过，?val1&#x3D;QNKCDZO&amp;val2&#x3D;240610708</p>
+<p>$$md5 &#x3D;&#x3D; md5$$md5)用特殊字符串&amp;md5&#x3D;0e215962017</p>
+<p>第三个利用$XYCTF可以被复写，保证xyctf和xy相同即可，md5编码XYCTF_550102591发现是0e打头，用0e绕过即可，&amp;XYCTF&#x3D;240610708&amp;XY&#x3D;240610708</p>
+<p>接下来访问LLeeevvveeelll222.php</p>
+<p>第一个if用到了interval，post,利用数组绕过a[]&#x3D;a</p>
+<p><code>echo preg_replace($_GET[&#39;a&#39;],$_GET[&#39;b&#39;],$_GET[&#39;c&#39;]);</code>查阅资料得知a处正则用&#x2F;e方式读取可以执行命令，payload：<code>?a=/re/e&amp;b=print_r(scandir(&#39;.&#39;))&amp;c=re</code>读取到flag在根目录，&amp;b&#x3D;highlight_file(‘&#x2F;flag’)读取flag</p>
+<h5 id="Solved-ezhttp"><a href="#Solved-ezhttp" class="headerlink" title="[Solved]ezhttp"></a>[Solved]ezhttp</h5><p>robots.txt-&gt;拿到账号密码</p>
+<p>hackbar一路修改请求头即可</p>
+<p>特殊之处在于X-Forward-F被过滤，用Client-ip</p>
+<p>代理用Via</p>
+<h5 id="ezmd5"><a href="#ezmd5" class="headerlink" title="ezmd5"></a>ezmd5</h5><p>传入两张同样的图片，返回{“areEqual”:false,”md5Equal”:true,”md5_1”:”af6794c93d1157c0688d6cc5600b8cae”,”md5_2”:”af6794c93d1157c0688d6cc5600b8cae”}</p>
+<p>从网上查阅到两个MD5值相同但是图片不同的特例：</p>
+<p><img src="/../images/plane.jpg"></p>
+<p><img src="/../images/ship.jpg"></p>
+<p>上传后得到flag</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://dyinglight5.github.io/posts/XYCTF-%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/" data-id="clyyhqmox000n0ov50ra920kt" data-title="[XYCTF]刷题笔记" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/posts/4-14%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%88%B7%E9%A2%98%E6%97%A5%E8%AE%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          4.14文件上传刷题日记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/posts/upload-labs%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">upload-labs刷题笔记</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ctf-writeup/">ctf writeup</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ctf%E5%88%B7%E9%A2%98%E6%97%A5%E8%AE%B0/">ctf刷题日记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ctf-wp/" rel="tag">ctf wp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ctf%E5%88%B7%E9%A2%98%E6%97%A5%E8%AE%B0/" rel="tag">ctf刷题日记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%B7%E9%A2%98%E6%97%A5%E8%AE%B0/" rel="tag">刷题日记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">学习笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ctf-wp/" style="font-size: 10px;">ctf wp</a> <a href="/tags/ctf%E5%88%B7%E9%A2%98%E6%97%A5%E8%AE%B0/" style="font-size: 15px;">ctf刷题日记</a> <a href="/tags/%E5%88%B7%E9%A2%98%E6%97%A5%E8%AE%B0/" style="font-size: 10px;">刷题日记</a> <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="font-size: 20px;">学习笔记</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">六月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/posts/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/posts/ssrf%E6%BC%8F%E6%B4%9E/">ssrf漏洞</a>
+          </li>
+        
+          <li>
+            <a href="/posts/7-15%E5%88%B7%E9%A2%98/">7.15刷题</a>
+          </li>
+        
+          <li>
+            <a href="/posts/7-13%E5%88%B7%E9%A2%98/">7.13刷题</a>
+          </li>
+        
+          <li>
+            <a href="/posts/XSS%E6%BC%8F%E6%B4%9E/">XSS漏洞</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 Dyinglight<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

