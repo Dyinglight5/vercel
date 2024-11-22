@@ -1,0 +1,212 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>文件上传漏洞学习笔记 | Dyinglight's blog</title><meta name="author" content="Dyinglight"><meta name="copyright" content="Dyinglight"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="文件上传漏洞参考文章:https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_43390703&#x2F;article&#x2F;details&#x2F;104858705 什么是文件上传漏洞？攻击者上传可执行的动态脚本文件，可以是木马，病毒，恶意脚本或者WebShell等。 什么是webshell？WebShell就是以asp、php、jsp或者cgi等网页文件形式存在的一种命令执行环境，也可以将其称之为一种网页后门。攻击者在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文件上传漏洞学习笔记">
+<meta property="og:url" content="https://www.dyinglight.me/2024/04/03/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Dyinglight&#39;s blog">
+<meta property="og:description" content="文件上传漏洞参考文章:https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_43390703&#x2F;article&#x2F;details&#x2F;104858705 什么是文件上传漏洞？攻击者上传可执行的动态脚本文件，可以是木马，病毒，恶意脚本或者WebShell等。 什么是webshell？WebShell就是以asp、php、jsp或者cgi等网页文件形式存在的一种命令执行环境，也可以将其称之为一种网页后门。攻击者在">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.dyinglight.me/img/sly.jpg">
+<meta property="article:published_time" content="2024-04-03T11:49:51.000Z">
+<meta property="article:modified_time" content="2024-04-04T09:00:10.991Z">
+<meta property="article:author" content="Dyinglight">
+<meta property="article:tag" content="学习笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.dyinglight.me/img/sly.jpg"><link rel="shortcut icon" href="/img/%E6%98%9F%E7%90%83.png"><link rel="canonical" href="https://www.dyinglight.me/2024/04/03/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '文件上传漏洞学习笔记',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-04 17:00:10'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/sly.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/2.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Dyinglight's blog"><span class="site-name">Dyinglight's blog</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">文件上传漏洞学习笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-03T11:49:51.000Z" title="发表于 2024-04-03 19:49:51">2024-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-04T09:00:10.991Z" title="更新于 2024-04-04 17:00:10">2024-04-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="文件上传漏洞学习笔记"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="文件上传漏洞"><a href="#文件上传漏洞" class="headerlink" title="文件上传漏洞"></a>文件上传漏洞</h1><p>参考文章:<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43390703/article/details/104858705">https://blog.csdn.net/qq_43390703/article/details/104858705</a></p>
+<h3 id="什么是文件上传漏洞？"><a href="#什么是文件上传漏洞？" class="headerlink" title="什么是文件上传漏洞？"></a>什么是文件上传漏洞？</h3><p>攻击者上传可执行的动态脚本文件，可以是木马，病毒，恶意脚本或者WebShell等。</p>
+<p>什么是webshell？<br>WebShell就是以<strong>asp</strong>、<strong>php</strong>、<strong>jsp</strong>或者<strong>cgi</strong>等网页文件形式存在的一种命令执行环境，也可以将其称之为一种网页后门。攻击者在入侵了一个网站后，通常会将这些asp或php后门文件与网站服务器web目录下正常的网页文件混在一起，然后使用浏览器来访问这些后门，得到一个命令执行环境，以达到控制网站服务器的目的（可以上传下载或者修改文件，操作数据库，执行任意命令等）。 WebShell后门隐蔽较性高，可以轻松穿越防火墙，访问WebShell时不会留下系统日志，只会在网站的web日志中留下一些数据提交记录。</p>
+<h3 id="产生原因"><a href="#产生原因" class="headerlink" title="产生原因"></a>产生原因</h3><ul>
+<li>对上传文件的后缀名没有做较为严格的限制</li>
+<li>对上传文件的MIMETYPE没有做检查</li>
+<li>权限上没有对于上传的文件目录设置不可执行权限</li>
+<li>对于web server对于上传文件或者指定目录的行为没有做限制</li>
+</ul>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>WEB中上传文件，服务器读取这个分段(multipart)提取并保存，通常，在进行文件保存的时候，服务器端会读取文件的原始文件名，并从这个原始文件名中得出文件的扩展名，而后随机为文件起一个文件名 ( 为了防止重复 )，并且加上原始文件的扩展名来保存到服务器上</p>
+<h3 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h3><ol>
+<li>上传web脚本语言，服务器执行恶意代码</li>
+<li>上传flash的策略文件crossdomain.xml，攻击者控制在该域的行为</li>
+<li>上传病毒木马，诱导用户下载执行</li>
+<li>上传钓鱼图片</li>
+<li>上传php脚本，文件包含执行</li>
+</ol>
+<h3 id="防范与绕过"><a href="#防范与绕过" class="headerlink" title="防范与绕过"></a>防范与绕过</h3><h4 id="1-前端过滤"><a href="#1-前端过滤" class="headerlink" title="1.前端过滤"></a>1.前端过滤</h4><h5 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a><strong>原理</strong></h5><p><strong>在表单中使用onsumbit&#x3D;checkFile()调用js函数来检查上传文件的扩展名。当用户在客户端选择文件点击上传的时候，客户端还没有向服务器发送任何消息，就对本地文件进行检测来判断是否是可以上传的类型，这种方式称为前台脚本检测扩展名。</strong></p>
+<h5 id="绕过方法："><a href="#绕过方法：" class="headerlink" title="绕过方法："></a>绕过方法：</h5><p>上传一句话木马，改名jpg格式，bp抓包改回php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">@<span class="keyword">eval</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;cmd&#x27;</span>]);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-检查扩展名"><a href="#2-检查扩展名" class="headerlink" title="2.检查扩展名"></a>2.检查扩展名</h4><p>在服务器进行检查，过滤掉不合法的扩展名文件，有白名单和黑名单</p>
+<p>绕过方法：在一些Web server中，存在解析漏洞:<br>1.老版本的IIS6中的目录解析漏洞，如果网站目录中有一个 <strong>&#x2F;.asp&#x2F;目录</strong>，那么此目录下面的一切内容都会被当作asp脚本来解析<br>2.老版本的IIS6中的<strong>分号漏洞</strong>：IIS在解析文件名的时候可能将分号后面的内容丢弃，那么我们可以在上传的时候给后面加入分号内容来避免黑名单过滤，如 a.asp;jpg<br>3.旧版Windows Server中存在<strong>空格和dot漏洞</strong>类似于 <strong>a.php. 和 a.php[空格]</strong> 这样的文件名存储后会被windows去掉点和空格，从而使得加上这两个东西可以突破过滤，成功上传，并且被当作php代码来执行<br>4.nginx(0.5.x, 0.6.x, 0.7 &lt;&#x3D; 0.7.65, 0.8 &lt;&#x3D; 0.8.37**)空字节漏洞 xxx.jpg%00.php** 这样的文件名会被解析为php代码运行（fastcgi会把这个文件当php看，不受空字节影响，但是检查文件后缀的那个功能会把空字节后面的东西抛弃，所以识别为jpg）<br>5.apache1.x,2.x的<strong>解析漏洞</strong>，上传如<strong>a.php.rar a.php.gif</strong> 类型的文件名，可以避免对于php文件的过滤机制，但是由于apache在解析文件名的时候<strong>是从右向左读</strong>，如果遇到不能识别的扩展名则跳过，rar等扩展名是apache不能识别的，因此就会直接将类型识别为php，从而达到了注入php代码的目的</p>
+<h4 id="检查Content-Type"><a href="#检查Content-Type" class="headerlink" title="检查Content-Type"></a>检查Content-Type</h4><h5 id="原理-2"><a href="#原理-2" class="headerlink" title="原理"></a>原理</h5><p>HTTP协议规定了上传资源的时候在Header中加上一项文件的MIMETYPE，来识别文件类型，这个动作是由浏览器完成的，服务端可以检查此类型不过这仍然是不安全的,因为HTTP header可以被发出者或者中间人任意的修改。</p>
+<h5 id="绕过方法"><a href="#绕过方法" class="headerlink" title="绕过方法"></a>绕过方法</h5><p>使用各种各样的工具（如burpsuite）强行篡改Header就可以，将Content-Type: application&#x2F;php改为其他web程序允许的类型。</p>
+<h4 id="3-文件头检查文件"><a href="#3-文件头检查文件" class="headerlink" title="3.文件头检查文件"></a>3.文件头检查文件</h4><h5 id="原理-3"><a href="#原理-3" class="headerlink" title="原理"></a>原理</h5><p>利用的是每一个特定类型的文件都会有不太一样的开头或者标志位。</p>
+<p>例如：TIFF (tif)  49492A00</p>
+<h5 id="绕过方法-1"><a href="#绕过方法-1" class="headerlink" title="绕过方法"></a>绕过方法</h5><p>给上传脚本加上相应的幻数头字节就可以，php引擎会将 &lt;?之前的内容当作html文本，不解释而跳过之，后面的代码仍然能够得到执行比如下面：<br>（一般不限制图片文件格式的时候使用GIF的头比较方便（47494638），因为全都是文本可打印字符。）</p>
+<h4 id="4-限制Web-Server对特定类型文件的行为"><a href="#4-限制Web-Server对特定类型文件的行为" class="headerlink" title="4.限制Web Server对特定类型文件的行为"></a>4.限制Web Server对特定类型文件的行为</h4><h5 id="原理-4"><a href="#原理-4" class="headerlink" title="原理"></a>原理</h5><p>导致文件上传漏洞的根本原因在于服务把用户上传的本应是数据的内容当作了代码，一般而言：用户上传的内容都会被存储到特定的一个文件夹下，比如我们很多人习惯于放在 .&#x2F;upload&#x2F; 下面要防止数据被当作代码执行，我们可以限制web server对于特定文件夹的行为。(在Response的Content-type修改)</p>
+<ol>
+<li><p>指定特定文件名的处理方式(纯文本)<code>   AddType text/plain .pl .py .php</code></p>
+</li>
+<li><p>完全禁止特定扩展名的文件被访问(黑名单)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">   Options -ExecCGI</span><br><span class="line">   AddHandler cgi-script .php .pl .py .jsp .asp .htm .shtml .sh .cgi识别</span><br><span class="line"></span><br><span class="line">3. 强制web服务器对于特定文件类型的处理，**与第一条不同的是， 下面的方法直接强行让apache将文件识别为你指定的类型，而第一种是让浏览器符合上面正则的全部被认为是纯文本，也可以继续往里面加入其他类型。**</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>&lt;FilesMatch “.(php|pl|py|jsp|asp|htm|shtml|sh|cgi)$”&gt;<br>ForceType text&#x2F;plain</p>
+</FilesMatch>
+```
+</li>
+<li><p>只允许访问特定类型文件(白名单)</p>
+</li>
+</ol>
+<h5 id="绕过方法-2"><a href="#绕过方法-2" class="headerlink" title="绕过方法"></a>绕过方法</h5><p>可以通过 move_uploaded_file 函数把自己写的.htaccess 文件上传，<strong>覆盖掉服务器上的文件，来定义文件类型和执行权限</strong>如果做到了这一点，将获得相当大的权限。</p>
+<p>补充知识htaccess：</p>
+<p>.htaccess文件(或者”分布式配置文件”）,全称是Hypertext Access(超文本入口)。提供了针对目录改变配置的方法， 即，在一个特定的文档目录中放置一个包含一个或多个指令的文件， 以作用于此目录及其所有子目录。作为用户，所能使用的命令受到限制。管理员可以通过Apache的AllowOverride指令来设置。概述来说，htaccess文件是Apache服务器中的一个配置文件，它<strong>负责相关目录下的网页配置</strong>。通过htaccess文件，可以帮我们实现：网页301重定向、自定义404错误页面、改变文件扩展名、允许&#x2F;阻止特定的用户或者目录的访问、禁止目录列表、配置默认文档等功能。</p>
+<h4 id="5-。文件系统00阻断"><a href="#5-。文件系统00阻断" class="headerlink" title="5,。文件系统00阻断"></a>5,。文件系统00阻断</h4><h5 id="原理-5"><a href="#原理-5" class="headerlink" title="原理"></a>原理</h5><p><strong>在上传的时候，当文件系统读到【0x00】时，会认为文件已经结束。</strong>利用00截断就是利用程序员在写程序时对文件的上传路径过滤不严格，产生0x00、%00上传截断漏洞。</p>
+<h5 id="绕过方法-3"><a href="#绕过方法-3" class="headerlink" title="绕过方法"></a><strong>绕过方法</strong></h5><p>通过抓包截断将【evil.php.jpg】后面的一个【.】换成【0x00】。在上传的时候，当文件系统读到【0x00】时，会认为文件已经结束，从而将【evil.php.jpg】的内容写入到【evil.php】中，从而达到攻击的目的。</p>
+<h4 id="6-NTFS文件系统特性绕过"><a href="#6-NTFS文件系统特性绕过" class="headerlink" title="6.NTFS文件系统特性绕过"></a>6.NTFS文件系统特性绕过</h4><p>NTFS交换数据流（alternate data streams简称ADS）是NTFS磁盘格式的新特性，见漏洞详细可查CVE-1999-0278。</p>
+<p>一个完整的流的格式为：::<br>文件主流即我们平时可以看见的可以存储数据的文件。而非主文件流寄宿于主文件流中，无法直接读取。<br>修改宿主文件的内容或流的内容，不会对彼此造成影响。<br>流类型总是以符 号 作 为 开 始 ，NTFS文 件 系 统 中 的 文 件 至 少 包 含 一 个 主 流 ， 也 就 是data流 ( 符号作为开始，NTFS文件系统中的文件至少包含一个主流，也就是data流(符号作为开始，NTFS文件系统中的文件至少包含一个主流，也就是data流(DATA)，默认流名为空。<br>ADS可以省略流名，但不能省略流类型。<br>NTFS文件系统中的文件夹没有data流，但可以指派data流，文件夹的主流为directory流 ， 流 名 默 认 为 l30<br><strong>当我们对一个在NTFS分区中的ASP文件发出包含D A T A 请 求 ， I I S 会 检 查 最 后 一 个 “ . ” 后 面 的 扩 展 名 ， 因 为 多 了 : : DATA请求，IIS会检查最后一个“.”后面的扩展名，因为多了::DATA请求，IIS会检查最后一个“.”后面的扩展名，因为多了::DATA，结果IIS不认为这是一个ASP文件，而文件系统可以识别该请求，于是返回ASP的源代码。</strong></p>
+<h5 id="绕过方法-4"><a href="#绕过方法-4" class="headerlink" title="绕过方法"></a>绕过方法</h5><p>看不懂先跳了</p>
+<h4 id="7-二次渲染绕过"><a href="#7-二次渲染绕过" class="headerlink" title="7.二次渲染绕过"></a>7.二次渲染绕过</h4><p>图片的二次渲染形成代码</p>
+<h4 id="8-条件竞争"><a href="#8-条件竞争" class="headerlink" title="8.条件竞争"></a>8.条件竞争</h4><h5 id="原理-6"><a href="#原理-6" class="headerlink" title="原理"></a>原理</h5><p>与服务端频繁交互导致处理顺序出错</p>
+<h4 id="9-其他漏洞"><a href="#9-其他漏洞" class="headerlink" title="9.其他漏洞"></a>9.其他漏洞</h4><ol>
+<li>后缀名大小写绕过 用于只将小写的脚本后缀名(如php)过滤掉的场合； 例如:将Burpsuite截获的数据包中的文件名【evil.php】改为【evil.Php】</li>
+<li>双写后缀名绕过 用于只将文件后缀名过滤掉的场合，例如”php”字符串过滤的； 例如:上传时将Burpsuite截获的数据包中文件名【evil.php】改为【evil.pphphp】，那么过滤了第一个”php”字符串”后，开头的’p’和结尾的’hp’就组合又形成了【php】。</li>
+<li>特殊后缀名绕过 用于检测文件合法性的脚本有问题的场合； 例如:将Burpsuite截获的数据包中【evil.php】名字改为【evil.php6】，或加个空格改为【evil.php 】等。</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://www.dyinglight.me">Dyinglight</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://www.dyinglight.me/2024/04/03/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">https://www.dyinglight.me/2024/04/03/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.dyinglight.me" target="_blank">Dyinglight's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></div><div class="post_share"><div class="social-share" data-image="/img/sly.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/04/04/upload-labs%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/" title="upload-labs刷题笔记"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">upload-labs刷题笔记</div></div></a></div><div class="next-post pull-right"><a href="/2024/03/31/20240331%E5%88%B7%E9%A2%98%E6%97%A5%E8%AE%B0-sql/" title="20240331刷题日记-sql"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">20240331刷题日记-sql</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/04/17/php%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/" title="php命令执行"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-17</div><div class="title">php命令执行</div></div></a></div><div><a href="/2024/04/04/upload-labs%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/" title="upload-labs刷题笔记"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-04</div><div class="title">upload-labs刷题笔记</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/sly.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Dyinglight</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Dyinglight5"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E"><span class="toc-number">1.</span> <span class="toc-text">文件上传漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%EF%BC%9F"><span class="toc-number">1.0.1.</span> <span class="toc-text">什么是文件上传漏洞？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%A7%E7%94%9F%E5%8E%9F%E5%9B%A0"><span class="toc-number">1.0.2.</span> <span class="toc-text">产生原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">1.0.3.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8"><span class="toc-number">1.0.4.</span> <span class="toc-text">利用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%B2%E8%8C%83%E4%B8%8E%E7%BB%95%E8%BF%87"><span class="toc-number">1.0.5.</span> <span class="toc-text">防范与绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%89%8D%E7%AB%AF%E8%BF%87%E6%BB%A4"><span class="toc-number">1.0.5.1.</span> <span class="toc-text">1.前端过滤</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-1"><span class="toc-number">1.0.5.1.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="toc-number">1.0.5.1.2.</span> <span class="toc-text">绕过方法：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%A3%80%E6%9F%A5%E6%89%A9%E5%B1%95%E5%90%8D"><span class="toc-number">1.0.5.2.</span> <span class="toc-text">2.检查扩展名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5Content-Type"><span class="toc-number">1.0.5.3.</span> <span class="toc-text">检查Content-Type</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-2"><span class="toc-number">1.0.5.3.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95"><span class="toc-number">1.0.5.3.2.</span> <span class="toc-text">绕过方法</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%96%87%E4%BB%B6%E5%A4%B4%E6%A3%80%E6%9F%A5%E6%96%87%E4%BB%B6"><span class="toc-number">1.0.5.4.</span> <span class="toc-text">3.文件头检查文件</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-3"><span class="toc-number">1.0.5.4.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95-1"><span class="toc-number">1.0.5.4.2.</span> <span class="toc-text">绕过方法</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E9%99%90%E5%88%B6Web-Server%E5%AF%B9%E7%89%B9%E5%AE%9A%E7%B1%BB%E5%9E%8B%E6%96%87%E4%BB%B6%E7%9A%84%E8%A1%8C%E4%B8%BA"><span class="toc-number">1.0.5.5.</span> <span class="toc-text">4.限制Web Server对特定类型文件的行为</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-4"><span class="toc-number">1.0.5.5.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95-2"><span class="toc-number">1.0.5.5.2.</span> <span class="toc-text">绕过方法</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E3%80%82%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F00%E9%98%BB%E6%96%AD"><span class="toc-number">1.0.5.6.</span> <span class="toc-text">5,。文件系统00阻断</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-5"><span class="toc-number">1.0.5.6.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95-3"><span class="toc-number">1.0.5.6.2.</span> <span class="toc-text">绕过方法</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-NTFS%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%89%B9%E6%80%A7%E7%BB%95%E8%BF%87"><span class="toc-number">1.0.5.7.</span> <span class="toc-text">6.NTFS文件系统特性绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95-4"><span class="toc-number">1.0.5.7.1.</span> <span class="toc-text">绕过方法</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-%E4%BA%8C%E6%AC%A1%E6%B8%B2%E6%9F%93%E7%BB%95%E8%BF%87"><span class="toc-number">1.0.5.8.</span> <span class="toc-text">7.二次渲染绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-%E6%9D%A1%E4%BB%B6%E7%AB%9E%E4%BA%89"><span class="toc-number">1.0.5.9.</span> <span class="toc-text">8.条件竞争</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-6"><span class="toc-number">1.0.5.9.1.</span> <span class="toc-text">原理</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-%E5%85%B6%E4%BB%96%E6%BC%8F%E6%B4%9E"><span class="toc-number">1.0.5.10.</span> <span class="toc-text">9.其他漏洞</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/10/13/DASCTF2022%E4%B8%83%E6%9C%88/" title="DASCTF2022七月">DASCTF2022七月</a><time datetime="2024-10-13T11:48:35.000Z" title="发表于 2024-10-13 19:48:35">2024-10-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/10/13/linux%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/" title="linux应急响应">linux应急响应</a><time datetime="2024-10-13T04:26:24.000Z" title="发表于 2024-10-13 12:26:24">2024-10-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/10/06/ThinkPHP5%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" title="ThinkPHP5反序列化漏洞复现">ThinkPHP5反序列化漏洞复现</a><time datetime="2024-10-06T07:52:44.000Z" title="发表于 2024-10-06 15:52:44">2024-10-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/09/28/SCTF-web/" title="SCTF-web">SCTF-web</a><time datetime="2024-09-28T01:04:34.000Z" title="发表于 2024-09-28 09:04:34">2024-09-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/09/08/2024%E9%95%BF%E5%9F%8E%E6%9D%AF/" title="2024长城杯">2024长城杯</a><time datetime="2024-09-08T01:13:32.000Z" title="发表于 2024-09-08 09:13:32">2024-09-08</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Dyinglight</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
